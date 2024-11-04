@@ -1,96 +1,99 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './BlogPage.css';
 
-function BlogPage() {
+function BlogPage({ match }) {
+  const postId = match.params.id;
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [media, setMedia] = useState(null);
+  const [originalTitle, setOriginalTitle] = useState('');
+  const [originalContent, setOriginalContent] = useState('');
+  const [error, setError] = useState(null);
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleContentChange = (e) => setContent(e.target.value);
-  const handleMediaChange = (e) => setMedia(e.target.files[0]);
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await axios.get(`https://test_blogApp-backend.cloud-stacks.com/api/posts/${postId}`);
+        setTitle(response.data.title);
+        setContent(response.data.content);
+        setOriginalTitle(response.data.title);
+        setOriginalContent(response.data.content);
+      } catch (err) {
+        setError('Failed to fetch post');
+      }
+    };
+    fetchPost();
+  }, [postId]);
 
-  const saveDraft = async () => {
+  const handleSaveChanges = async () => {
     try {
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('content', content);
-      if (media) formData.append('media', media);
-      formData.append('status', 'draft');
-
-      await axios.post('https://test_blogApp-backend.cloud-stacks.com/api/posts', formData, {
+      await axios.put(`https://test_blogApp-backend.cloud-stacks.com/api/posts/${postId}`, {
+        title,
+        content
+      }, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'application/json'
         }
       });
-      alert('Draft saved successfully');
-    } catch (error) {
-      alert('Failed to save draft');
+      setOriginalTitle(title);
+      setOriginalContent(content);
+    } catch (err) {
+      setError('Failed to save changes');
     }
   };
 
-  const publishPost = async () => {
-    try {
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('content', content);
-      if (media) formData.append('media', media);
-      formData.append('status', 'published');
-
-      await axios.post('https://test_blogApp-backend.cloud-stacks.com/api/posts', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      alert('Post published successfully');
-    } catch (error) {
-      alert('Failed to publish post');
-    }
+  const handleDiscardEdits = () => {
+    setTitle(originalTitle);
+    setContent(originalContent);
   };
 
   return (
     <div className="blog-page">
       <header className="header">
-        <div className="logo">Logo</div>
-        <div className="blog-title">Blog Title</div>
-        <div className="blog-description">A brief description of the blog.</div>
-        <div className="profile-actions">
-          <button>Profile</button>
-          <button>Logout</button>
-        </div>
+        <h1>Blog Platform Name</h1>
+        <div className="user-profile">User Profile</div>
       </header>
-      <nav className="nav-tabs">
-        <button>Home</button>
-        <button>My Posts</button>
-        <button>Create Post</button>
-        <button>Settings</button>
+      <nav className="navigation-tabs">
+        <ul>
+          <li>Home</li>
+          <li>My Posts</li>
+          <li>Drafts</li>
+        </ul>
       </nav>
-      <main className="form-container">
-        <input
-          type="text"
-          placeholder="Enter blog title"
-          value={title}
-          onChange={handleTitleChange}
-        />
-        <textarea
-          placeholder="Enter blog content"
-          value={content}
-          onChange={handleContentChange}
-        ></textarea>
-        <input type="file" onChange={handleMediaChange} />
-        <div className="action-buttons">
-          <button onClick={saveDraft}>Save as Draft</button>
-          <button onClick={publishPost} className="publish-button">Publish Post</button>
-        </div>
+      <main className="main-content">
+        {error && <div className="error-message">{error}</div>}
+        <form className="edit-form">
+          <div className="form-field">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className="form-field">
+            <label htmlFor="content">Content</label>
+            <textarea
+              id="content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+          </div>
+          <div className="action-buttons">
+            <button type="button" onClick={handleSaveChanges}>
+              Save Changes
+            </button>
+            <button type="button" onClick={handleDiscardEdits}>
+              Discard Edits
+            </button>
+          </div>
+        </form>
       </main>
       <footer className="footer">
-        <a href="#about">About Us</a>
-        <a href="#contact">Contact Us</a>
-        <a href="#terms">Terms of Service</a>
-        <a href="#privacy">Privacy Policy</a>
-        <div className="social-media-icons">
-          {/* Social media icons can be added here */}
+        <div>© 2023 Blog Platform. All rights reserved.</div>
+        <div>
+          <a href="#terms">Terms of Service</a> | <a href="#privacy">Privacy Policy</a>
         </div>
       </footer>
     </div>
