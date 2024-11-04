@@ -1,0 +1,81 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+}
+
+nav {
+  display: flex;
+  gap: 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.main-body {
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.blog-post {
+  border-bottom: 1px solid #dee2e6;
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blog-post h2 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.blog-post .post-meta {
+  font-size: 0.9em;
+  color: #6c757d;
+}
+
+.blog-post .post-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.blog-post .post-actions a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.blog-post .post-actions .delete-button {
+  background-color: #dc3545;
+  color: #ffffff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.blog-post .post-actions .delete-button:hover {
+  background-color: #c82333;
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+  color: #6c757d;
+  margin: 0 5px;
+}
+
+footer a:hover {
+  color: #343a40;
+}

@@ -1,0 +1,130 @@
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.header .profile {
+  display: flex;
+  align-items: center;
+}
+
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  background-color: #e9ecef;
+  padding: 10px 0;
+}
+
+.nav-tabs a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+}
+
+.form-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-field {
+  margin-bottom: 20px;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.form-field textarea {
+  height: 200px;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.media-options {
+  margin-bottom: 20px;
+}
+
+.media-options input[type='file'] {
+  display: none;
+}
+
+.media-options label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.action-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.action-links a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.primary-action-button {
+  background-color: #28a745;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.primary-action-button:hover {
+  background-color: #218838;
+}
+
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #000000;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
