@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../database/db');
+const sequelize = require('../config/database');
 
 class Post extends Model {
   static init(sequelize) {
@@ -11,16 +11,21 @@ class Post extends Model {
           notEmpty: true,
         },
       },
-      content: {
+      datePublished: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      excerpt: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notEmpty: true,
         },
       },
-    }, { 
-      sequelize, 
+    }, {
+      sequelize,
       modelName: 'Post',
+      tableName: 'posts',
       timestamps: false,
     });
   }
